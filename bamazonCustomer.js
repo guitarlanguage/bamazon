@@ -25,8 +25,8 @@ function itemsForSale() {
     connection.query("SELECT * FROM products", function(err, res) {
         if (err) throw err;
         // Log space for better terminal viewing experience
-        console.log(`
-            `);
+        // console.log(`
+        //     `);
         //log each element in the products table
         res.forEach(function(elem) {
             console.log(`Id Number: ${elem.item_id} | ${elem.product_name} | Department: ${elem.department_name} | Price: $${elem.price} | In Stock: ${elem.stock_quantity}`);
@@ -66,10 +66,16 @@ var whichProductWouldYouLike = function() {
                         connection.query(query, { item_id: answer.whichId }, function (err, res) {
                             if (err) throw err;
                             //
+                            // console.log(answer.howMany);
                             res.forEach(function(elem) {
                                 console.log(`Id Number: ${elem.item_id} | ${elem.product_name} | Department: ${elem.department_name} | Price: $${elem.price} | In Stock: ${elem.stock_quantity}`);
                                 console.log(`--------------------------------------------------------------------------------------`);
                             });
+                            console.log(`${res[0].stock_quantity} available in stock!`);
+                            if (res[0].stock_quantity < answer.howMany) {
+                                console.log(`Insufficient quantity!`);
+                            }
+
                         });
                 });
             };

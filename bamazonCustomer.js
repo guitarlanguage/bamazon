@@ -76,19 +76,15 @@ var whichProductWouldYouLike = function() {
 
                 } else {
                     var totalCost = answer.howMany * res[0].price;
+                    var newStockQuant = res[0].stock_quantity - answer.howMany;
+                    connection.query("UPDATE products SET stock_quantity = ? WHERE item_id = ?", [newStockQuant, answer.whichId], function(err, res) {
+                        if (err) throw err;
+                    });
+
                     console.log(`---------------------------------------------`);
                     console.log(`Your Order: ${answer.howMany} ${res[0].product_name} at $${res[0].price}`);
                     console.log(`                                       `);
                     console.log(`Total Cost: $${totalCost.toFixed(2)}`);
-                    // console.log(`${answer.howMany} at ${res[0].price} = ${totalCost}`);
-                    var newStockQuant = res[0].stock_quantity - answer.howMany;
-                    "UPDATE products SET ? WHERE ?", [{
-                            stock_quantity: newStockQuant
-                        },
-                        {
-                            item_id: answer.whichId
-                        }
-                    ],
                     console.log(`                                       `);
                     console.log(`only ${newStockQuant} ${res[0].product_name} remaining `);
                     console.log(`------------------------------------------`);

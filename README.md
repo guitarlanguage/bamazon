@@ -3,3 +3,4 @@
 # they are then how many of that item they would like
 # bamazon updates their cart, order summary, and the MySQL Database
 # do an npm install to get dependencies
+# https://www.youtube.com/watch?v=-HO6vHgtIJc
